@@ -34,13 +34,15 @@ public class Visitor implements Serializable {
 	
 	private Time timeVisit;
 	
-	//private User user;
+	@ManyToOne
+	@JoinColumn(name = "hostId")
+	private User user;
 	
 	public Visitor() {}
 
 	public Visitor(String visitorName, User user, String companyName, Date dateVisit, Time timeVisit) {
 		this.visitorName = visitorName;
-		//this.user = user;
+		this.user = user;
 		this.companyName = companyName;
 		this.dateVisit = dateVisit;
 		this.timeVisit = timeVisit;
@@ -62,13 +64,13 @@ public class Visitor implements Serializable {
 		this.visitorName = visitorName;
 	}	
 
-//	public User getUser() {
-//		return user;
-//	}
-//
-//	public void setUser(User user) {
-//		this.user = user;
-//	}
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public String getHostName() {
 		return hostName;
