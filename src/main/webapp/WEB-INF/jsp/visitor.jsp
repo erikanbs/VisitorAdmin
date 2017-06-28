@@ -47,7 +47,7 @@
 		
 		<div class="well tab-pane active">
 		  <div class="row">
-		    <form action="/visit/add" class="form-horizontal" id="visitorForm" method="POST">
+		    <form action="/visit/add" class="form-horizontal" id="visitorForm" method="POST">		      
 						<div class="form-group">
 							<label for="visitorName" class="control-label col-md-2">Visitor Name</label>
 							<div class="col-md-10">
@@ -68,7 +68,7 @@
               <label for="mobile" class="control-label col-md-2">Mobile</label>
               <div class="col-md-10">
                 <div class="input-group">
-                  <input type="tel" name="mobile" class="form-control"  pattern="\d{6}[\-]\d{4}"  placeholder="e.g. 061122-3344" />
+                  <input type="tel" name="mobile" class="form-control"  pattern="\d{6}[\-]\d{4}"  placeholder="061122-3344" />
                 </div>
               </div>
             </div>
@@ -85,18 +85,18 @@
 						<div class="form-group">
               <label for="hostName" class="control-label col-md-2">Whom to Visit</label>
               <div class="col-md-10">
-                <div class="input-group">
-									<div class="dropdown">
-										 <select name="employee">
-											<c:forEach var="emp" items="${employees}">
-												<option value="${emp.id}"
-													${employee == emp ? 'selected="selected"' : ''}>${emp.fullName}</option>
+                <div class="input-group dropdown">
+								<!-- 	<div class="dropdown"> -->
+										 <select class="form-control" name="user" path="user.id">
+											<c:forEach var="u" items="${users}">
+												<option value="${u.id}"
+													${user == u ? 'selected="selected"' : ''}>${u.fullName}</option>
 											</c:forEach>
 										</select>
-									</div>
+								<!-- 	</div> -->
 								</div>
               </div>
-            </div>
+            </div>            
             <div class="form-group">
               <label for="dateVisit" class="control-label col-md-2">Date</label>
               <div class="col-md-10">
@@ -108,18 +108,22 @@
             <div class="form-group">
               <label for="timeVisit" class="control-label col-md-2">Time</label>
               <div class="col-md-10">
-                <div class="input-group clockpicker">
-                  <input type="text" name="timeVisit" class="form-control" value="09:30"> 
-                  <span class="input-group-addon"> 
-                    <span class="glyphicon glyphicon-time"></span>
-                  </span>
-                </div>
+                <div class="input-group">
+                  <div class="input-group clockpicker">
+                    <input type="text" name="timeVisit" class="form-control" value="09:30"> 
+                    <span class="input-group-addon"> 
+                      <span class="glyphicon glyphicon-time"></span>
+                    </span>
+                 </div>
+               </div>
               </div>
             </div>
 						<div class="form-group">
 							<label class="control-label col-md-2">Purpose</label>
 							<div class="col-md-10">
-								<textarea cols="40" rows="6" class="form-control" placeholder="e.g. The purpose of the visit"></textarea>
+							  <div class="input-group">
+								  <textarea cols="40" rows="4" class="form-control" name="purpose" placeholder="e.g. The purpose of the visit"></textarea>
+								</div>
 							</div>
 						</div>
 						

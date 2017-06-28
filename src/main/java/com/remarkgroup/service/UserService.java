@@ -27,5 +27,9 @@ public class UserService {
 		}
 		return emps;
 	}
+	
+	public User findUser(int i) {
+		return userRepository.findOne(i);
+	}
 
 }

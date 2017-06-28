@@ -1,6 +1,20 @@
 (function () {
   "use strict";
   
+  $(document).ready(function(){
+
+	  var $table = $('#resultsTable');
+	  var $msg = $('#no-data');
+	  if ( $('input[name="visitorsCount"]').val() == 0) {
+	      $('#resultsTable > thead > th').css('display','none');
+	      $table.hide();
+		  $msg.show();
+	  } else {
+		  $table.show();
+		  $msg.hide();
+	  };
+  });
+  
   var $pickButton = $("#pickButton");
 
   $("#reasonDropdown li a").on("click", function () {
@@ -20,11 +34,5 @@
   $sentDialog.on("hidden.bs.modal", function () {
     return true;
   });
-  
-  //index
-  if ($('#resultsTable > tbody > tr').length == 0){
-      $('#resultsTable > thead > th').css('display','none');
-  };
-  
 
 })();

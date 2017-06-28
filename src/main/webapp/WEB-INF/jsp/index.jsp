@@ -46,30 +46,33 @@
     <section id="body" class="container">
     
     <div class="page-header">
-      <h1>Visitors</h1>
+      <!-- <h1>Visitors</h1> -->
       <jsp:useBean id="todayDate" class="java.util.Date"/>  
       <p class="text-info"><fmt:formatDate value="${todayDate}" dateStyle = "long" timeStyle = "long"/></p>
     </div>
-      
-    <div class="panel panel-default">
-      <div class="panel-body">
+    <input type="hidden" name="visitorsCount" value="${visitorsCount}"/>
+    <div class="panel panel-info">
+				<div class="panel-heading">
+					<h3 class="panel-title">Visitors</h3>
+				</div>
+				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-12">
-							<div class="table-responsive" id="resultsTable">
+						  <div id="no-data">
+                <h5>No Registration Today</h5>
+              </div>
+							<div class="table-responsive" id="resultsTable">							
 								<table class="table table-striped table-hover table-condensed" >
 									<thead>
 										<tr>
-											<td>Visitor</td>
-											<td>Company</td>
-											<td>Host</td>
-											<td>Time</td>
-											<td>Purpose</td>
+											<th>Visitor</th>
+											<th>Company</th>
+											<th>Host</th>
+											<th>Time</th>
+											<th>Purpose</th>
 										</tr>
 									</thead>
-									<tbody class="searchable">
-										<tr class="no-data">
-											<td colspan="6">No data</td>
-										</tr>
+									<tbody class="searchable">									  
 										<c:forEach var="visitor" items="${visitors}">
 											<tr>
 												<td>${visitor.visitorName}</td>
@@ -86,10 +89,11 @@
 					</div>
 				</div>
     </div>  
-  
+  <!-- 
     <footer class="container">
       <p>Footer</p>
     </footer>
+     -->
   </div>
 
 	<script src="/static/js/jquery.min.js"></script>

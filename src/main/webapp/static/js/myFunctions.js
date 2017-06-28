@@ -10,7 +10,8 @@
             autoclose: true,
         });
         $('.clockpicker').clockpicker({
-            autoclose: true
+            autoclose: true,
+            timeFormat: 'h:m'
         });        
 
         $("#mobile").mask("(99) 9999-9999");

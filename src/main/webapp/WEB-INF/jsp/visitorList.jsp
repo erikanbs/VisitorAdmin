@@ -44,18 +44,25 @@
     <section id="body" class="container">
     
     <h3>Visitors</h3>
+    <ul class="pagination pagination-sm">
+        <li class="disabled"><a href="#">&laquo;</a></li>
+        <li class="active"><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">&raquo;</a></li>
+      </ul>
     <div class="row">
       <div class="col-md-12">
         <div class="table-responsive">
           <table class="table table-striped table-hover table-condensed">
             <thead>
               <tr>
-                <td>Visitor</td>
-                <td>Company</td>
-                <td>Host</td>
-                <td>Date</td>
-                <td>Time</td>
-                <td>Purpose</td>                
+                <th>Visitor</th>
+                <th>Company</th>
+                <th>Host</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Purpose</th>                
                 <th></th>
                 <th></th>
               </tr>

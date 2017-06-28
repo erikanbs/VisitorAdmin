@@ -2,6 +2,7 @@ package com.remarkgroup.controller;
 
 
 
+import java.sql.Time;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,8 +17,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.remarkgroup.model.User;
 import com.remarkgroup.model.Visitor;
-import com.remarkgroup.repository.UserRepository;
 import com.remarkgroup.repository.VisitorRepository;
 import com.remarkgroup.service.UserService;
 import com.remarkgroup.service.VisitorService;
@@ -36,24 +37,22 @@ public class MainController {
 	private VisitorRepository visitorRepository;
 	
 	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
 	private VisitorService visitorService;
 	
 	@Autowired
-	private UserService employeeService;
+	private UserService userService;
 
 	@GetMapping
 	public String home(HttpServletRequest request) {
-		//List<Visitor> visitors = visitorService.findTodayList();
-		//request.setAttribute("visitors", visitors.stream().collect(Collectors.toList()));
+		List<Visitor> visitors = visitorService.findTodayList();
+		request.setAttribute("visitors", visitors.stream().collect(Collectors.toList()));
+		request.setAttribute("visitorsCount", visitors.size());
 		return INDEX;
 	}
 
 	@GetMapping("/new-visitor")
 	public String newVisitor(HttpServletRequest request){
-		request.setAttribute("employees", employeeService.findAll());
+		request.setAttribute("users", userService.findAll());
 		return VISITOR;
 	}
 
@@ -66,17 +65,26 @@ public class MainController {
 		
 		visitorSave.setVisitorName(visitorForm.getVisitorName());
 		visitorSave.setHostName(visitorForm.getHostName());
+		
+		Time t = visitorForm.getTimeVisit();
+	
+		final int id = Integer.valueOf(request.getParameter("user"));
+		final User user = userService.findUser(id);
+		visitorSave.setUser(user);
+		visitorSave.setHostName(user.getFullName());
+		
 		visitorRepository.save(visitorSave);
+		request.setAttribute("users", userService.findAll());
 		
 		return VISITOR;		
 	}
-	
+
 	@GetMapping("/all-visitors")
 	public String allVisitors(HttpServletRequest request){		
 		List<Visitor> visitors = visitorService.findAllOrderByDateDesc();				
 		request.setAttribute("visitors", visitors.stream().collect(Collectors.toList()));
-				
-		return VISITOR_LIST;		
+			
+		return VISITOR_LIST;
 	}
 	
 	@GetMapping("/update-visitor")
