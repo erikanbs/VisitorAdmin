@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.remarkgroup.model.User;
+import com.remarkgroup.model.Visitor;
 import com.remarkgroup.repository.UserRepository;
 
 @Service
@@ -30,6 +31,15 @@ public class UserService {
 	
 	public User findUser(int i) {
 		return userRepository.findOne(i);
+	}
+	
+	public void saveAll(List<User> users) {
+		
+		for(User u: users){
+			if (userRepository.findAllByFullName(u.getFullName()).isEmpty()) {
+				userRepository.save(u);
+			}
+		}		
 	}
 
 }

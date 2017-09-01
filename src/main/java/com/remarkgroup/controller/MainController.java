@@ -27,6 +27,8 @@ import com.remarkgroup.service.VisitorService;
 @RequestMapping(path="/visit")
 public class MainController {
 	
+	private static final String SETTINGS = "settings";
+
 	private static final String VISITOR_LIST = "visitorList";
 
 	private static final String VISITOR = "visitor";
@@ -101,6 +103,11 @@ public class MainController {
 		request.setAttribute("visitors",
 				visitors.stream().collect(Collectors.toList()));
 		return VISITOR_LIST;
+	}
+	
+	@GetMapping("/settings")
+	public String setttings(HttpServletRequest request){
+		return SETTINGS;
 	}
 
 }

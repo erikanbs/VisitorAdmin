@@ -16,7 +16,9 @@
     
   <link href="/static/css/bootstrap.min.css" rel="stylesheet">    
   <link href="/static/css/bootstrap_flatly.min.css" rel="stylesheet">
-  <link href="/static/css/site.css" rel="stylesheet">    
+  <link href="/static/css/site.css" rel="stylesheet">  
+  <link rel="stylesheet" href="/static/font-awesome-4.7.0/css/font-awesome.min.css">
+  
 </head>
 
 <body id="indexBody">
@@ -39,8 +41,9 @@
             </li>
             <li class="nav"><a href="/visit/all-visitors">List</a>
             </li>
-          </ul>
-        </div>
+          </ul>					
+					<a class="navbar-brand navbar-right" href="/visit/settings"><i class="fa fa-cog"></i> Settings</a>
+				</div>
       </div>
     </header>
     <section id="body" class="container">

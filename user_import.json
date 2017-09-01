@@ -1,0 +1,13 @@
+{
+  "total":"2",
+  "users": [
+    {
+	  "fullName":"Eduard",
+	  "email":"eduard@bla.com"
+	},
+	{
+	  "fullName":"Mona",
+	  "email":"mona@bla.com"
+	}
+  ]
+}
