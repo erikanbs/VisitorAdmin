@@ -109,9 +109,9 @@
             <div class="form-group">
               <label for="timeVisit" class="control-label col-md-2">Time</label>
               <div class="col-md-10">
-                <div class="input-group">
+                <div class="input-group">                  
                   <div class="input-group clockpicker">
-                    <input type="text" name="timeVisit" class="form-control" value="09:30"> 
+                    <input type="text" name="timeVisit" class="form-control" value="09:30">
                     <span class="input-group-addon"> 
                       <span class="glyphicon glyphicon-time"></span>
                     </span>

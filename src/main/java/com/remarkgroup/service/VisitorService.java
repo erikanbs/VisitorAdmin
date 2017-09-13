@@ -29,6 +29,14 @@ public class VisitorService {
 		return visitors;	
 	}
 	
+	public List<Visitor> findAllByHostName(String hostName) {
+		return visitorRepository.findAllByHostName(hostName);
+	}
+	
+	public List<Visitor> findAllByVisitorName(String visitorName) {
+		return visitorRepository.findAllByVisitorName(visitorName);
+	}
+	
 	public List<Visitor> findAllOrderByDateDesc() {
 		return visitorRepository.findAllByOrderByDateVisitDesc();
 	}

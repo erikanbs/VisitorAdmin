@@ -1,7 +1,5 @@
 package com.remarkgroup.controller;
 
-
-
 import java.sql.Time;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,16 +7,19 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.remarkgroup.model.User;
 import com.remarkgroup.model.Visitor;
+import com.remarkgroup.model.VisitorPojo;
 import com.remarkgroup.repository.VisitorRepository;
 import com.remarkgroup.service.UserService;
 import com.remarkgroup.service.VisitorService;
@@ -51,6 +52,23 @@ public class MainController {
 		request.setAttribute("visitorsCount", visitors.size());
 		return INDEX;
 	}
+	
+	@PostMapping("/search")
+	public ResponseEntity<?> getVisitorList(HttpServletRequest request, @RequestBody Visitor visitor) {
+		
+		VisitorPojo result = new VisitorPojo();
+		List<Visitor> visitors = visitorService.findAllByVisitorName(visitor.getVisitorName());
+		
+		if (visitors.isEmpty()) {
+            result.setMessage("no user found!");
+        } else {
+            result.setMessage("success");
+        }
+        result.setResult(visitors);
+
+        return ResponseEntity.ok(result);
+	}
+
 
 	@GetMapping("/new-visitor")
 	public String newVisitor(HttpServletRequest request){

@@ -47,13 +47,35 @@
       </div>
     </header>
     <section id="body" class="container">
+    <form class="form-horizontal" id="indexPage" method="POST"> 
+    <div class="panel panel-default">
+      <div class="panel-body">
+          <div class="input-group">
+            <input type="text" id="visitorName" class="form-control" placeholder="Search for..."> 
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="submit" value="Submit">Search</button>
+            </span>
+          </div>
+          <div id="feedback">
+            <table id="tableResults" class="table table-striped table-hover table-condensed">
+              <thead>                    
+                  </thead>
+                  <tbody>
+                  </tbody>
+            </table>
+          </div>
+        </div>
+    </div>
     
     <div class="page-header">
       <!-- <h1>Visitors</h1> -->
       <jsp:useBean id="todayDate" class="java.util.Date"/>  
       <p class="text-info"><fmt:formatDate value="${todayDate}" dateStyle = "long" timeStyle = "long"/></p>
     </div>
-    <input type="hidden" name="visitorsCount" value="${visitorsCount}"/>
+
+		
+
+		<input type="hidden" name="visitorsCount" value="${visitorsCount}"/>
     <div class="panel panel-info">
 				<div class="panel-heading">
 					<h3 class="panel-title">Visitors</h3>
@@ -92,6 +114,7 @@
 					</div>
 				</div>
     </div>  
+    </form>
   <!-- 
     <footer class="container">
       <p>Footer</p>

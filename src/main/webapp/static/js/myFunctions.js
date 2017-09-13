@@ -1,7 +1,7 @@
 (function () {
 	$(document).ready(function(){
 		
-        var date_input=$('input[name="dateVisit"]'); //our date input has the name "date"
+        var date_input=$('input[name="dateVisit"]');
         var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
         date_input.datepicker({
             format: 'yyyy/mm/dd',
@@ -9,10 +9,15 @@
             todayHighlight: true,
             autoclose: true,
         });
-        $('.clockpicker').clockpicker({
+//        $('.clockpicker').clockpicker({
+//            autoclose: true,
+//            timeFormat: 'h:m'
+//        });    
+        var time_input = $('input[name="timeVisit"]');
+        time_input.clockpicker({
             autoclose: true,
-            timeFormat: 'h:m'
-        });        
+            timeFormat: 'HH:mm:ss'
+        });    
 
         $("#mobile").mask("(99) 9999-9999");
 

@@ -13,7 +13,13 @@ public interface VisitorRepository extends CrudRepository<Visitor, Serializable>
 	
 	List<Visitor> findAllByOrderByDateVisitDesc();
 	
+	List<Visitor> findAllByHostName(String hostName);
+	
+	List<Visitor> findAllByVisitorName(String visitorName);
+	
 	@Query("select v from Visitor v where v.dateVisit = DATE(sysdate()) order by v.dateVisit desc")
 	List<Visitor> findTodayList();
+	
+	
 
 }
