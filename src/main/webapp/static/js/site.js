@@ -52,6 +52,8 @@
 		            if (response.length != 0 ) {
 		            	var tbl_head = "<tr><th>Visitor</th><th>Company</th><th>Host</th><th>Time</th><th>Purpose</th></tr>";
 		            	$("#tableResults thead").html(tbl_head);
+		            } else {
+		            	$("#tableResults thead").html("<tr><th>No results found</th></tr>");
 		            }
 		            
 		            for (var i = 0; i < response.length; i++) {

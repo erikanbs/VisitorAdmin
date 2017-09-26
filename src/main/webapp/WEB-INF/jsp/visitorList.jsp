@@ -38,6 +38,7 @@
             <li class="nav"><a href="/visit/new-visitor">Register</a></li>
             <li class="nav active"><a href="/visit/all-visitors">List</a></li>
           </ul>
+          <a class="navbar-brand navbar-right" href="/visit/settings"><i class="fa fa-cog"></i> Settings</a>
         </div>
       </div>
     </header>
@@ -84,8 +85,7 @@
 					</table>
         </div>
       </div>
-    </div>
-    
+    </div>    
   </div>
 
   <script src="/static/js/jquery.min.js"></script>

@@ -33,111 +33,112 @@ import com.remarkgroup.service.UserService;
 
 @Controller
 public class UploadController {
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	private final Logger logger = LoggerFactory.getLogger(UploadController.class);
 
-    //Save the uploaded file to this folder
-    private static String UPLOADED_FOLDER = "C://temp//";
-    
-    @PostMapping(path="/visit/upload")
-    public String uploadFile(@RequestParam("file") MultipartFile uploadfile, HttpServletRequest request) {
+	// Save the uploaded file to this folder
+	private static String UPLOADED_FOLDER = "C://temp//";
 
-        logger.debug("Single file upload!");
+	@PostMapping(path = "/visit/upload")
+	public String uploadFile(@RequestParam("file") MultipartFile uploadfile, HttpServletRequest request) {
 
-        if (uploadfile.isEmpty()) {
-            request.setAttribute("message", "Please select a file!");
-            return "settings";
-        }
+		logger.debug("Single file upload!");
 
-        try {
+		if (uploadfile.isEmpty()) {
+			request.setAttribute("message", "Please select a file!");
+			return "settings";
+		}
 
-        	readFiles(Arrays.asList(uploadfile));
+		try {
 
-        } catch (IOException e) {
-        	request.setAttribute("message", HttpStatus.BAD_REQUEST);
-            return "settings";
-        }
+			readFiles(Arrays.asList(uploadfile));
 
-        return "settings";
+		} catch (IOException e) {
+			request.setAttribute("message", HttpStatus.BAD_REQUEST);
+			return "settings";
+		}
 
-    }
-    
-    public ResponseEntity<?> uploadFileExample(@RequestParam("file") MultipartFile uploadfile) {
+		return "settings";
 
-        logger.debug("Single file upload!");
+	}
 
-        if (uploadfile.isEmpty()) {
-            return new ResponseEntity("please select a file!", HttpStatus.OK);
-        }
+	public ResponseEntity<?> uploadFileExample(@RequestParam("file") MultipartFile uploadfile) {
 
-        try {
+		logger.debug("Single file upload!");
 
-            saveUploadedFiles(Arrays.asList(uploadfile));
+		if (uploadfile.isEmpty()) {
+			return new ResponseEntity("please select a file!", HttpStatus.OK);
+		}
 
-        } catch (IOException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+		try {
 
-        return new ResponseEntity("Successfully uploaded - " + uploadfile.getOriginalFilename(), new HttpHeaders(), HttpStatus.OK);
+			saveUploadedFiles(Arrays.asList(uploadfile));
 
-    }
-    
-    //save file
-    private void saveUploadedFiles(List<MultipartFile> files) throws IOException {
+		} catch (IOException e) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 
-        for (MultipartFile file : files) {
+		return new ResponseEntity("Successfully uploaded - " + uploadfile.getOriginalFilename(), new HttpHeaders(),
+				HttpStatus.OK);
 
-            if (file.isEmpty()) {
-                continue; //next pls
-            }
+	}
 
-            byte[] bytes = file.getBytes();
-            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-            Files.write(path, bytes);
-        }
-    }
-    
-    private void readFiles(List<MultipartFile> files) throws IOException {
-    	
-    	for (MultipartFile file : files) {
-    		if (file.isEmpty()) {
-    			continue; //next pls
-    		}
+	// save file
+	private void saveUploadedFiles(List<MultipartFile> files) throws IOException {
 
-    		byte[] bytes = file.getBytes();
-    		String name;
-    		String email;
-    		List<User> userList = new ArrayList<User>();
-    		userList.clear();
+		for (MultipartFile file : files) {
 
-    		InputStream is = new ByteArrayInputStream(bytes);
-    		JSONParser parser = new JSONParser();
-    		try {
-    			JSONObject json = (JSONObject) parser.parse(new InputStreamReader(is));
-    			is.close();
-    			JSONArray users = (JSONArray) json.get("users");
-    			if (users != null) {
-    				for (Object object : users) {
-    					JSONObject jsonObj = (JSONObject) object;
-    					name = (String) jsonObj.get("fullName");
-    					email = (String) jsonObj.get("email");
-    					User u = new User(name, email);
-    					userList.add(u);
-    				}
-    			}
-    		} catch (ParseException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
-    		
-    		//call method to save the users
-    		if (!userList.isEmpty()) {
-    			userService.saveAll(userList);	
-    		}        	
-    	}
-    }
+			if (file.isEmpty()) {
+				continue; // next pls
+			}
+
+			byte[] bytes = file.getBytes();
+			Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
+			Files.write(path, bytes);
+		}
+	}
+
+	private void readFiles(List<MultipartFile> files) throws IOException {
+
+		for (MultipartFile file : files) {
+			if (file.isEmpty()) {
+				continue; // next pls
+			}
+
+			byte[] bytes = file.getBytes();
+			String name;
+			String email;
+			List<User> userList = new ArrayList<User>();
+			userList.clear();
+
+			InputStream is = new ByteArrayInputStream(bytes);
+			JSONParser parser = new JSONParser();
+			try {
+				JSONObject json = (JSONObject) parser.parse(new InputStreamReader(is));
+				is.close();
+				JSONArray users = (JSONArray) json.get("users");
+				if (users != null) {
+					for (Object object : users) {
+						JSONObject jsonObj = (JSONObject) object;
+						name = (String) jsonObj.get("fullName");
+						email = (String) jsonObj.get("email");
+						User u = new User(name, email);
+						userList.add(u);
+					}
+				}
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			// call method to save the users
+			if (!userList.isEmpty()) {
+				userService.saveAll(userList);
+			}
+		}
+	}
 
 }

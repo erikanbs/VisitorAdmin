@@ -13,32 +13,33 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Visitor implements Serializable {
-	
+
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	
+
 	private String visitorName;
-	
+
 	private String hostName;
-	
+
 	private String purpose;
-	
+
 	private String companyName;
-	
+
 	private String mobile;
-	
+
 	private String note;
-	
+
 	private Date dateVisit;
-	
+
 	private Time timeVisit;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "hostId")
 	private User user;
-	
-	public Visitor() {}
+
+	public Visitor() {
+	}
 
 	public Visitor(String visitorName, User user, String companyName, Date dateVisit, Time timeVisit) {
 		this.visitorName = visitorName;
@@ -62,7 +63,7 @@ public class Visitor implements Serializable {
 
 	public void setVisitorName(String visitorName) {
 		this.visitorName = visitorName;
-	}	
+	}
 
 	public User getUser() {
 		return user;
@@ -126,6 +127,6 @@ public class Visitor implements Serializable {
 
 	public void setTimeVisit(Time timeVisit) {
 		this.timeVisit = timeVisit;
-	}	
+	}
 
 }

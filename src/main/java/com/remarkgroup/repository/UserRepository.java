@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import com.remarkgroup.model.User;
 
 public interface UserRepository extends CrudRepository<User, Serializable> {
-	
+
 	List<User> findAllByFullName(String name);
 
 }

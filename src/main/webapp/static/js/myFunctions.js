@@ -17,7 +17,16 @@
         time_input.clockpicker({
             autoclose: true,
             timeFormat: 'HH:mm:ss'
-        });    
+        });   
+        
+        $('.clockpicker').clockpicker()
+        .find('input').change(function(){
+            // TODO: time changed
+        	$('input[name="timeInput"]').val(this.value);
+            console.log(this.value);
+            console.log('input'+$('input[name="timeInput"]').val());
+        });
+
 
         $("#mobile").mask("(99) 9999-9999");
 

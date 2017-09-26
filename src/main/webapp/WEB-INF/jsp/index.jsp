@@ -35,7 +35,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-left">
-            <li class="nav active"><a href=".">Home</a>
+            <li class="nav active"><a href="/visit">Home</a>
             </li>
             <li class="nav"><a href="/visit/new-visitor">Register</a>
             </li>
@@ -72,8 +72,6 @@
       <jsp:useBean id="todayDate" class="java.util.Date"/>  
       <p class="text-info"><fmt:formatDate value="${todayDate}" dateStyle = "long" timeStyle = "long"/></p>
     </div>
-
-		
 
 		<input type="hidden" name="visitorsCount" value="${visitorsCount}"/>
     <div class="panel panel-info">

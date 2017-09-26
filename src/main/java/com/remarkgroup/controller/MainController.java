@@ -25,9 +25,9 @@ import com.remarkgroup.service.UserService;
 import com.remarkgroup.service.VisitorService;
 
 @Controller
-@RequestMapping(path="/visit")
+@RequestMapping(path = "/visit")
 public class MainController {
-	
+
 	private static final String SETTINGS = "settings";
 
 	private static final String VISITOR_LIST = "visitorList";
@@ -38,10 +38,10 @@ public class MainController {
 
 	@Autowired
 	private VisitorRepository visitorRepository;
-	
+
 	@Autowired
 	private VisitorService visitorService;
-	
+
 	@Autowired
 	private UserService userService;
 
@@ -52,61 +52,61 @@ public class MainController {
 		request.setAttribute("visitorsCount", visitors.size());
 		return INDEX;
 	}
-	
+
 	@PostMapping("/search")
 	public ResponseEntity<?> getVisitorList(HttpServletRequest request, @RequestBody Visitor visitor) {
-		
+
 		VisitorPojo result = new VisitorPojo();
 		List<Visitor> visitors = visitorService.findAllByVisitorName(visitor.getVisitorName());
-		
-		if (visitors.isEmpty()) {
-            result.setMessage("no user found!");
-        } else {
-            result.setMessage("success");
-        }
-        result.setResult(visitors);
 
-        return ResponseEntity.ok(result);
+		if (visitors.isEmpty()) {
+			result.setMessage("no user found!");
+		} else {
+			result.setMessage("success");
+		}
+		result.setResult(visitors);
+
+		return ResponseEntity.ok(result);
 	}
 
-
 	@GetMapping("/new-visitor")
-	public String newVisitor(HttpServletRequest request){
+	public String newVisitor(HttpServletRequest request) {
 		request.setAttribute("users", userService.findAll());
 		return VISITOR;
 	}
 
-	@PostMapping(path="/add")
-	public String addNewVisitor(HttpServletRequest request, @ModelAttribute Visitor visitorForm, BindingResult resultsForm ) {
-		
+	@PostMapping(path = "/add")
+	public String addNewVisitor(HttpServletRequest request, @ModelAttribute Visitor visitorForm,
+			BindingResult resultsForm) {
+
 		Visitor visitorSave = visitorService.findVisitor(visitorForm.getId());
 		if (visitorSave == null)
 			visitorSave = visitorForm;
-		
+
 		visitorSave.setVisitorName(visitorForm.getVisitorName());
 		visitorSave.setHostName(visitorForm.getHostName());
-		
+
 		Time t = visitorForm.getTimeVisit();
-	
+
 		final int id = Integer.valueOf(request.getParameter("user"));
 		final User user = userService.findUser(id);
 		visitorSave.setUser(user);
 		visitorSave.setHostName(user.getFullName());
-		
+
 		visitorRepository.save(visitorSave);
 		request.setAttribute("users", userService.findAll());
-		
-		return VISITOR;		
+
+		return VISITOR;
 	}
 
 	@GetMapping("/all-visitors")
-	public String allVisitors(HttpServletRequest request){		
-		List<Visitor> visitors = visitorService.findAllOrderByDateDesc();				
+	public String allVisitors(HttpServletRequest request) {
+		List<Visitor> visitors = visitorService.findAllOrderByDateDesc();
 		request.setAttribute("visitors", visitors.stream().collect(Collectors.toList()));
-			
+
 		return VISITOR_LIST;
 	}
-	
+
 	@GetMapping("/update-visitor")
 	public String updateVisitor(@RequestParam int id, HttpServletRequest request) {
 		request.setAttribute("visitor", visitorService.findVisitor(id));
@@ -118,13 +118,12 @@ public class MainController {
 	public String deleteVisitor(@RequestParam int id, HttpServletRequest request) {
 		visitorService.deleteVisitor(id);
 		List<Visitor> visitors = visitorService.findAll();
-		request.setAttribute("visitors",
-				visitors.stream().collect(Collectors.toList()));
+		request.setAttribute("visitors", visitors.stream().collect(Collectors.toList()));
 		return VISITOR_LIST;
 	}
-	
+
 	@GetMapping("/settings")
-	public String setttings(HttpServletRequest request){
+	public String setttings(HttpServletRequest request) {
 		return SETTINGS;
 	}
 

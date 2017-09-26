@@ -8,22 +8,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
-
 @Entity
 public class User implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@Column(name="fullName")
+	@Column(name = "fullName")
 	private String fullName;
 
-	@Column(name="email")
+	@Column(name = "email")
 	private String email;
-	
-	//private Set<Visitor> visitors;
+
+	// private Set<Visitor> visitors;
 
 	public int getId() {
 		return id;
@@ -57,5 +55,5 @@ public class User implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-		
+
 }

@@ -73,36 +73,24 @@
                 </div>
               </div>
             </div>
-            <!--
-            <div class="form-group">
-              <label for="hostName" class="control-label col-md-2">Whom to Visit</label>
-              <div class="col-md-10">
-                <div class="input-group">
-                  <input type="text" name="hostName" class="form-control" placeholder="e.g. Host Name" />
-                </div>
-              </div>
-            </div>
-              -->
 						<div class="form-group">
               <label for="hostName" class="control-label col-md-2">Whom to Visit</label>
               <div class="col-md-10">
-                <div class="input-group dropdown">
-								<!-- 	<div class="dropdown"> -->
-										 <select class="form-control" name="user" path="user.id">
-											<c:forEach var="u" items="${users}">
-												<option value="${u.id}"
-													${user == u ? 'selected="selected"' : ''}>${u.fullName}</option>
-											</c:forEach>
-										</select>
-								<!-- 	</div> -->
+								<div class="input-group dropdown">
+									<select class="form-control" name="user" path="user.id">
+										<c:forEach var="u" items="${users}">
+											<option value="${u.id}"
+												${user == u ? 'selected="selected"' : ''}>${u.fullName}</option>
+										</c:forEach>
+									</select>
 								</div>
-              </div>
+							</div>
             </div>            
             <div class="form-group">
               <label for="dateVisit" class="control-label col-md-2">Date</label>
               <div class="col-md-10">
                 <div class="input-group">
-                  <input type="text" name="dateVisit" class="form-control" placeholder="dd/mm/yyyy" />
+                  <input type="text" name="dateVisit" class="form-control" placeholder="yyyy/mm/dd" />
                 </div>
               </div>
             </div>
@@ -127,8 +115,7 @@
 								</div>
 							</div>
 						</div>
-						
-						
+												
 						<div class="form-group">
               <div class="col-md-10 col-md-offset-2">
                 <input type="submit" value="Submit" class="btn btn-success" />
@@ -156,14 +143,12 @@
     </div>
   </div>
 
-
 	<script src="/static/js/jquery.min.js"></script>
   <script src="/static/js/bootstrap.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
   <script type="text/javascript" src="/static/js/bootstrap-clockpicker.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
   <script src="/static/js/myFunctions.js"></script>
-  <!--  <script src="/static/js/site.js"></script>-->
 </body>
 
 </html>
