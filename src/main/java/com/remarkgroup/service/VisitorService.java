@@ -29,6 +29,10 @@ public class VisitorService {
 		}
 		return visitors;
 	}
+	
+	public Page<Visitor> listAllByPage(Pageable pageable) {
+		return visitorRepository.findAll(pageable);
+	}
 
 	public List<Visitor> findAllByHostName(String hostName) {
 		return visitorRepository.findAllByHostName(hostName);

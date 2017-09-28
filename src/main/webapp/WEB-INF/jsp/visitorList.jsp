@@ -46,12 +46,14 @@
     
     <h3>Visitors</h3>
     <ul class="pagination pagination-sm">
-        <li class="disabled"><a href="#">&laquo;</a></li>
-        <li class="active"><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">&raquo;</a></li>
-      </ul>
+      <li><a href="/visit/all-visitors?page=0">&laquo;</a></li>
+      <c:forEach begin="${startpage}" end="${endpage - 1}" var="p">
+         <li class="${p == page.getNumber() ? 'active' : ''}">
+           <a href="/visit/all-visitors?page=${p}">${p+1}</a>
+         </li>
+      </c:forEach>
+      <li><a href="/visit/all-visitors?page=${page.getTotalPages()-1}">&raquo;</a></li>
+    </ul>  
     <div class="row">
       <div class="col-md-12">
         <div class="table-responsive">
@@ -69,7 +71,7 @@
               </tr>
             </thead>
 						<tbody>
-						  <c:forEach var="visitor" items="${visitors}">
+						  <c:forEach var="visitor" items="${page.getContent()}">
 						    <tr>
 								  <td>${visitor.visitorName}</td>
 								  <td>${visitor.companyName}</td>

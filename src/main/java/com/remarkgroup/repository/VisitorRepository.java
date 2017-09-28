@@ -1,15 +1,13 @@
 package com.remarkgroup.repository;
 
-import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.remarkgroup.model.Visitor;
 
-public interface VisitorRepository extends CrudRepository<Visitor, Serializable> {
+public interface VisitorRepository extends PagingAndSortingRepository<Visitor, Integer> {
 
 	List<Visitor> findAllByOrderByDateVisitDesc();
 

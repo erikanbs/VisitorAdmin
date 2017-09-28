@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -35,6 +38,10 @@ public class MainController {
 	private static final String VISITOR = "visitor";
 
 	private static final String INDEX = "index";
+	
+	private static final int LIMIT_RESULTS_PER_PAGE = 3;
+	
+	private static final int LIMIT_PAGES = 2;
 
 	@Autowired
 	private VisitorRepository visitorRepository;
@@ -100,18 +107,24 @@ public class MainController {
 	}
 
 	@GetMapping("/all-visitors")
-	public String allVisitors(HttpServletRequest request) {
-		List<Visitor> visitors = visitorService.findAllOrderByDateDesc();
-		request.setAttribute("visitors", visitors.stream().collect(Collectors.toList()));
-
-		return VISITOR_LIST;
+	public String allVisitorsByPage(HttpServletRequest request, @PageableDefault(value = LIMIT_RESULTS_PER_PAGE) Pageable pageable) {
+		
+		Page<Visitor> visitors = visitorService.listAllByPage(pageable);
+		
+		int startpage = pageable.getPageNumber() + 1 - LIMIT_PAGES > 0 ? pageable.getPageNumber() - LIMIT_PAGES : 0;
+	    int endpage = startpage + LIMIT_PAGES;
+	    
+	    request.setAttribute("startpage", startpage);
+	    request.setAttribute("endpage", endpage);
+	    request.setAttribute("page", visitors);
+	    
+	    return VISITOR_LIST;
 	}
-
+	
 	@GetMapping("/update-visitor")
 	public String updateVisitor(@RequestParam int id, HttpServletRequest request) {
 		request.setAttribute("visitor", visitorService.findVisitor(id));
 		return VISITOR;
-
 	}
 
 	@GetMapping("/delete-visitor")
